@@ -17,9 +17,4 @@ public class DevInProjectDto implements BaseEntity<Long> {
     private Long id;
     private String projectName;
     private String devName;
-
-    @Override
-    public String toString() {
-        return "projectName=" + projectName + ", devName=" + devName;
-    }
 }

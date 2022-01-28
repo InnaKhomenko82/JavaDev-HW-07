@@ -13,6 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <version.hibernate-jpamodelgen>6.0.0.Alpha7</version.hibernate-jpamodelgen>
     </properties>
 
     <dependencies>
@@ -70,11 +71,6 @@
             <version>3.1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.3.2</version>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -90,6 +86,12 @@
             <version>6.0.0.Alpha7</version>
             <type>pom</type>
         </dependency>
+        <!--<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.6.5.Final</version>
+            <scope>provided</scope>
+        </dependency>-->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -98,5 +100,7 @@
         </dependency>
 
     </dependencies>
+
+
 
 </project>

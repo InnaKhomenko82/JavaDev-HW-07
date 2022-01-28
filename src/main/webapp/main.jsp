@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="ua.goit.models.Skill" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,6 +9,8 @@
 </head>
 <body>
 <%@ include file="navigation.jsp" %>
+
+<% List<Skill> listSkill = (List<Skill>) request.getAttribute("listSkill"); %>
 
 <div class="container">
 
@@ -67,7 +72,7 @@
             <thead>
             <tr>
                 <th scope="col">project</th>
-                <th scope="col">developer name</th>
+                <th scope="col">developer</th>
 
             </tr>
             </thead>
@@ -90,15 +95,29 @@
     </div>
     <div class="row">
         <div class="mb-3">
-            <label for="skill">skill field</label>
-            <select class="form-select" id="skill" name="skill"
-                    value=''
+            <label for="skillsField">skill field</label>
+            <select class="form-select" id="skillsField" name="skillsField"
                     aria-label="Floating label select example">
                 <option>Select skill field</option>
+
                 <c:forEach var="element" items="${listSkill}">
-                    <option value='${element}'>${element.industry}</option>
+                    <c:choose>
+                        <c:when test="${element.id == skillsField.id}">
+                            <option selected value='${element}'>${element.skillsField}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${element.id}">${element.skillsField}</option>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </select>
+        </div>
+        <div class="row">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2" role="group" aria-label="Second group">
+                    <button onclick="save()" type="button" class="btn btn-primary">Apply</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -131,7 +150,7 @@
                     value=''
                     aria-label="Floating label select example">
                 <option>Select skill level</option>
-                <c:forEach var="element" items="${listSkill}">
+                <c:forEach var="element" items="${listSkill2}">
                     <option value='${element}'>${element.level}</option>
                 </c:forEach>
             </select>
@@ -180,6 +199,24 @@
             </tbody>
         </table>
     </div>
+</div>
+<script>
 
+    let skill = document.getElementById('skill');
+
+    function save() {
+        let body = skill.value;
+        let url = '';
+        let method = 'POST';
+
+        fetch(url, {
+            method: method,
+            body: JSON.stringify(body)
+        })
+            .then( _ => {
+                    window.location.href = '';
+                });
+    }
+</script>
 </body>
 </html>

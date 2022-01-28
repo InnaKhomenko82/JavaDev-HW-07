@@ -86,7 +86,6 @@
     let age = document.getElementById('age');
     let salary = document.getElementById('salary');
     let company = document.getElementById('company');
-
     function save() {
         let body = {
             <% if(developer.getId() != null) {%>
@@ -96,7 +95,6 @@
             salary: salary.value,
             company: company.value
         }
-
         <% if(developer.getId() == null) {%>
         let url = '/developers';
         let method = 'POST';

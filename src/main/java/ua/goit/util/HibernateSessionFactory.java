@@ -25,6 +25,10 @@ public class HibernateSessionFactory {
         return sessionFactory;
     }
 
+    public static void init(){
+        
+    }
+
     public static void close(){
         getSessionFactory().close();
     }

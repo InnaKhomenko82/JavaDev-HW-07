@@ -1,14 +1,10 @@
 package ua.goit.servlets;
 
-import com.google.gson.Gson;
-import ua.goit.models.Company;
 import ua.goit.models.Developer;
-import ua.goit.models.Skill;
 import ua.goit.models.dto.DevCompanyDto;
 import ua.goit.service.CompanyService;
 import ua.goit.service.DevCompanyService;
 import ua.goit.service.DeveloperService;
-import ua.goit.service.SkillService;
 import ua.goit.util.HandleBodyUtil;
 
 import javax.servlet.ServletException;
