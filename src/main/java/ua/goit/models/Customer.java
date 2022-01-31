@@ -1,6 +1,10 @@
 package ua.goit.models;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,12 +32,14 @@ public class Customer implements BaseEntity<Long>{
     @Column(name = "category", length = 45)
     private String category;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "customers_projects",
             joinColumns = {@JoinColumn (name = "customer_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")}
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Project> projects;
 
     public Customer(String ... parameters){

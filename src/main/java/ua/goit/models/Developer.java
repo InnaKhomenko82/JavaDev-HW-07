@@ -1,11 +1,12 @@
 package ua.goit.models;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
@@ -39,19 +40,21 @@ public class Developer implements BaseEntity<Long> {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "developers_skills",
             joinColumns = {@JoinColumn (name = "developer_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "skill_id", referencedColumnName = "id", nullable = false)})
     private Set <Skill> skills;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "developers_projects",
             joinColumns = {@JoinColumn (name = "developer_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set <Project> projects;
 
     public Developer(String ... parameters){

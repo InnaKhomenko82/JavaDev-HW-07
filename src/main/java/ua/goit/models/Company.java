@@ -1,6 +1,10 @@
 package ua.goit.models;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,28 +32,22 @@ public class Company implements BaseEntity<Long>{
     @Column(name = "quantity_staff")
     private Long quantityStaff;
 
-    public Company(String ... parameters){
-        this.id = Long.valueOf(parameters[0]);
-        this.name = parameters[1];
-        this.quantityStaff = Long.valueOf(parameters[2]);
-    }
-
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Developer> developers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "companies_projects",
             joinColumns = {@JoinColumn (name = "company_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")}
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Project> projects;
 
-   /* @Override
-    public String toString() {
-        return "{" +
-                "\"id\":" + id +
-                ",\"name\":\"" + name +
-                "\"}";
-    }*/
+    public Company(String ... parameters){
+        this.id = Long.valueOf(parameters[0]);
+        this.name = parameters[1];
+        this.quantityStaff = Long.valueOf(parameters[2]);
+    }
 }

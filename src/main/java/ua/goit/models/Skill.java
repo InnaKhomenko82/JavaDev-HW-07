@@ -28,8 +28,7 @@ public class Skill implements BaseEntity<Long> {
     @Column(name = "level", length = 45)
     private String skillsLevel;
 
-    @ManyToMany(mappedBy = "skills",
-            cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "skills", fetch = FetchType.EAGER)
     private Set<Developer> developers;
 
     public Skill(String ... parameters){

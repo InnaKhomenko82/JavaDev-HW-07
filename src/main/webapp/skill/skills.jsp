@@ -31,10 +31,10 @@
                     <td><c:out value = "${skill.skillsField}"/></td>
                     <td><c:out value = "${skill.skillsLevel}"/></td>
                     <td>
-<%--                        <c:forEach var="developer" items="${skill.developers}">--%>
-<%--                            <c:out value = "${developer.name}"/>--%>
-<%--                            <br>--%>
-<%--                        </c:forEach>--%>
+                        <c:forEach var="developer" items="${skill.developers}">
+                            <c:out value = "${developer.name}"/>
+                            <br>
+                        </c:forEach>
                     </td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

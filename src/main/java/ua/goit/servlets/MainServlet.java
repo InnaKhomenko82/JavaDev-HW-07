@@ -1,5 +1,6 @@
 package ua.goit.servlets;
 
+import ua.goit.models.Developer;
 import ua.goit.models.Project;
 import ua.goit.models.Skill;
 import ua.goit.repository.QueryRepositoryHibernateImpl;
@@ -22,7 +23,8 @@ import java.util.Optional;
 public class MainServlet extends HttpServlet{
 
     private final SkillService skillService = SkillService.getInstance();
-    QueryRepositoryHibernateImpl repo = new QueryRepositoryHibernateImpl(Project.class);
+
+    private final QueryRepositoryHibernateImpl repo = new QueryRepositoryHibernateImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +41,9 @@ public class MainServlet extends HttpServlet{
             repo.listDevsWithSkill()
 
                 });*/
+
+        List<Developer> developers = repo.listOfDevs();
+        req.setAttribute("developers", developers);
         req.getRequestDispatcher("main.jsp").forward(req, resp);
     }
 }

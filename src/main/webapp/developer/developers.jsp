@@ -35,11 +35,11 @@
                     <td><c:out value = "${developer.age}"/></td>
                     <td><c:out value = "${developer.salary}"/></td>
                     <td>
-                        <c:forEach var="skill" items="${developer.skills}">
-                            <c:out value = "🔘${skill.skillsField}"/>
-                            <c:out value = "(${skill.skillsLevel})"/>
-                            <br>
-                        </c:forEach>
+<%--                        <c:forEach var="skill" items="${developer.skills}">--%>
+<%--                            <c:out value = "🔘${skill.skillsField}"/>--%>
+<%--                            <c:out value = "(${skill.skillsLevel})"/>--%>
+<%--                            <br>--%>
+<%--                        </c:forEach>--%>
                     </td>
                     <td><c:out value = "${developer.company.name}"/></td>
                     <td>

@@ -23,9 +23,10 @@ public class DevCompanyDto implements BaseEntity<Long>{
     @SerializedName("salary")
     private Integer salary;
 
+    @SerializedName("skills")
+    private Set<Long> skills;
+
     @SerializedName("company")
     private Long company;
 
-    @SerializedName("skills")
-    private Set<Long> skils;
 }

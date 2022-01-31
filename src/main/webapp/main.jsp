@@ -10,8 +10,6 @@
 <body>
 <%@ include file="navigation.jsp" %>
 
-<% List<Skill> listSkill = (List<Skill>) request.getAttribute("listSkill"); %>
-
 <div class="container">
 
     <div class="row">

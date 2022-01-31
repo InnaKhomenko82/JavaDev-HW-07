@@ -2,6 +2,7 @@ package ua.goit.servlets;
 
 import ua.goit.models.Developer;
 import ua.goit.models.dto.DevCompanyDto;
+import ua.goit.repository.QueryRepositoryHibernateImpl;
 import ua.goit.service.CompanyService;
 import ua.goit.service.DevCompanyService;
 import ua.goit.service.DeveloperService;
@@ -22,6 +23,7 @@ public class DeveloperServlet extends HttpServlet{
     private final DeveloperService developerService= new DeveloperService(Developer.class);
     private final CompanyService companyService = CompanyService.getInstance();
     private final DevCompanyService devCompanyService = new DevCompanyService(DevCompanyDto.class);
+    private final QueryRepositoryHibernateImpl repo = new QueryRepositoryHibernateImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -50,7 +52,7 @@ public class DeveloperServlet extends HttpServlet{
             }
             resp.sendRedirect("/developers");
         } else {
-            List<Developer> developers = developerService.findAll();
+            List<Developer> developers = repo.listOfDevs();
             req.setAttribute("developers", developers);
             req.getRequestDispatcher("/developer/developers.jsp").forward(req, resp);
         }
