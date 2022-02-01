@@ -52,7 +52,7 @@ public class DeveloperServlet extends HttpServlet{
             }
             resp.sendRedirect("/developers");
         } else {
-            List<Developer> developers = repo.listOfDevs();
+            List<Developer> developers = developerService.findAll();
             req.setAttribute("developers", developers);
             req.getRequestDispatcher("/developer/developers.jsp").forward(req, resp);
         }

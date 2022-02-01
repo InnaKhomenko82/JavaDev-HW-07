@@ -125,6 +125,32 @@ public class QueryRepositoryHibernateImpl implements Closeable {
                 value -> value.collect(Collectors.toList()));
     }
 
+    public List <Skill> listOfSkillsField(){
+        Session session = createSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Skill> query = criteriaBuilder.createQuery(Skill.class);
+        Root<Skill> root = query.from(Skill.class);
+
+        query.select(root.get("skillsField")).distinct(true);
+        List<Skill> resultList = session.createQuery(query).getResultList();
+
+        closeSession(session);
+        return resultList;
+    }
+
+    public List <Skill> listOfSkillsLevel(){
+        Session session = createSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Skill> query = criteriaBuilder.createQuery(Skill.class);
+        Root<Skill> root = query.from(Skill.class);
+
+        query.select(root.get("skillsLevel")).distinct(true);
+        List<Skill> resultList = session.createQuery(query).getResultList();
+
+        closeSession(session);
+        return resultList;
+    }
+
     @Override
     public void close() throws IOException {
         HibernateSessionFactory.close();

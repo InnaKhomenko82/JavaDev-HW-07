@@ -49,7 +49,7 @@ public class Developer implements BaseEntity<Long> {
     private Set <Skill> skills;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+//    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "developers_projects",
             joinColumns = {@JoinColumn (name = "developer_id", referencedColumnName = "id")},

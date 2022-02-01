@@ -1,6 +1,8 @@
 package ua.goit;
 
 import ua.goit.repository.QueryRepositoryHibernateImpl;
+import ua.goit.service.SkillService;
+
 import java.io.IOException;
 
 public class Main {
@@ -16,6 +18,9 @@ public class Main {
             System.out.println(repo.listDevsWithLevel("senior"));
             System.out.println("***listOfProjects***");
             System.out.println(repo.listOfProjects());
+            System.out.println("***list skillLevel");
+            System.out.println(repo.listOfSkillsLevel());
         }
+
     }
 }
