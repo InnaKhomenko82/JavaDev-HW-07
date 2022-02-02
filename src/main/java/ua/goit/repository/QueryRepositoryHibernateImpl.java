@@ -4,11 +4,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
 import ua.goit.models.*;
+import ua.goit.models.dto.TestDTO;
+import ua.goit.models.meta.Developer_;
+import ua.goit.models.meta.Project_;
 import ua.goit.util.HibernateSessionFactory;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.*;
@@ -101,7 +102,29 @@ public class QueryRepositoryHibernateImpl implements Closeable {
          */
     }
 
-    public Collection<Project> listOfProjects() {
+    public List<TestDTO> listOfProjects() {
+        Session session = createSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<TestDTO> query = criteriaBuilder.createQuery(TestDTO.class);
+        Root<Project> root = query.from(Project.class);
+
+        Subquery<Long> subquery = query.subquery(Long.class);
+        Root<Developer> subRoot = subquery.from(Developer.class);
+        SetJoin<Developer, Project> subProjects = subRoot.join(Developer_.projects);
+        /*subquery.select(criteriaBuilder.count(subRoot.get(Developer_.salary)));
+        subquery.where(criteriaBuilder.equal(root.get(Project_.id), subProjects.get(Project_.id)));*/
+
+        query.multiselect(root.get(Project_.PROJECT_START), root.get(Project_.NAME)
+//                , criteriaBuilder.count(subRoot.get(Developer_.SALARY))
+        );
+
+        List<TestDTO> resultList = session.createQuery(query).getResultList();
+
+        closeSession(session);
+        return resultList;
+    }
+
+    /*public Collection<Project> listOfProjects() {
 
 //        Long count = execute(Collections.singletonMap("name", "ShedullerBot"), Project.class,
 //                value -> value
@@ -111,14 +134,14 @@ public class QueryRepositoryHibernateImpl implements Closeable {
 //        System.out.println(count);
         return execute(Collections.emptyMap(), Project.class,
                 value -> value.collect(Collectors.toSet()));
-        /*
+        *//*
         "SELECT p.start, p.name, count(d.name) as quantityDevs\n" +
                 "FROM " + databaseSchemaName + "." + "projects p\n" +
                 "INNER JOIN developers_projects dp on p.id = dp.project_id\n" +
                 "INNER JOIN developers d on d.id = dp.developer_id\n" +
                 "group by p.name, p.start;");
-         */
-    }
+         *//*
+    }*/
 
     public List <Developer> listOfDevs(){
         return execute(Collections.emptyMap(), Developer.class,
